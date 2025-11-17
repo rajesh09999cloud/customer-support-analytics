@@ -170,3 +170,11 @@ http://localhost:8502/
 For questions or issues regarding this project, please open an issue in the GitHub repository.
 
 <img width="2553" height="1359" alt="image" src="https://github.com/user-attachments/assets/7cfe28c1-0fbd-45e4-8677-8aaa7914ba51" />
+<img width="2109" height="559" alt="image" src="https://github.com/user-attachments/assets/50fa12da-0bd5-45cc-bf15-af2d130ce372" />
+<img width="2558" height="1355" alt="image" src="https://github.com/user-attachments/assets/10436fee-8f5e-49d4-abf5-067edb37768c" />
+<img width="2559" height="1359" alt="image" src="https://github.com/user-attachments/assets/3a55d266-8dc7-43cd-b7f4-ec11fc8c51d2" />
+<img width="2559" height="1362" alt="image" src="https://github.com/user-attachments/assets/b317316b-fa98-4da6-a119-cfdc0638524d" />
+
+
+
+
