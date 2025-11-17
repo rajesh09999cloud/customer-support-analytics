@@ -3,16 +3,16 @@
 
 "ML-powered customer support ticket classification system with Streamlit dashboard"
 
-  Live Dashboard Access:
+  ***Live Dashboard Access:***
   
 The interactive dashboard is deployed and accessible at:
 http://localhost:8502/
 
-  Project Overview:
+  ***Project Overview:***
 
 A comprehensive end-to-end machine learning solution for analyzing and automatically classifying customer support tickets. This system helps businesses streamline their support operations by categorizing incoming tickets, predicting priorities, and providing actionable insights through interactive dashboards.
 
-   Key Features:
+   ***Key Features:***
    
 Automated Ticket Categorization: Machine learning models to automatically classify tickets into categories (Billing, Technical, Account, General)
 
@@ -24,7 +24,7 @@ Performance Analytics: Resolution time analysis and agent performance tracking
 
 Text Analysis: NLP-powered insights from ticket content
 
-   Technical Stack:
+   ***Technical Stack:***
    
 Programming: Python 3.8+
 
@@ -38,7 +38,7 @@ Dashboard: Streamlit
 
 Data: Synthetic customer support dataset
 
-  Project Structure:
+  ***Project Structure:***
 
 Phase1_Data_Collection.ipynb
 Phase2_Data_Cleaning_EDA.ipynb
@@ -48,7 +48,7 @@ customer_support_tickets.csv
 requirements.txt
 README.md
 
-   Implementation Phases:
+   ***Implementation Phases:***
 
 Phase 1:
 
@@ -92,7 +92,7 @@ Category distribution analysis
 
 Resolution time monitoring
 
-  Key Metrics Tracked:
+  ***Key Metrics Tracked:***
   
 Ticket volume and trends over time
 
@@ -106,7 +106,7 @@ Ticket status overview
 
 Text analysis insights
 
-   Business Impact:
+   ***Business Impact:***
    
 30% faster ticket routing through automated categorization
 
@@ -118,7 +118,7 @@ Data-driven decision making with comprehensive analytics
 
 Proactive issue identification through trend analysis
 
-   Skills Demonstrated:
+   ***Skills Demonstrated:***
    
 End-to-end data science project lifecycle
 
@@ -132,7 +132,8 @@ Business intelligence and actionable insights
 
 Real-world problem solving
 
-  Sample Insights:
+  ***Sample Insights:***
+  
 Most common support categories and their resolution times
 
 Peak ticket volume periods and seasonal trends
@@ -141,7 +142,7 @@ High-priority issue patterns and root causes
 
 Agent performance metrics and efficiency analysis
 
-   Learning Outcomes:
+   ***Learning Outcomes:***
    
 By completing this project, you will master:
 
@@ -155,7 +156,7 @@ Business metrics analysis and reporting
 
 End-to-end project deployment
 
-  Quick Start Guide:
+  ***Quick Start Guide:***
   
 1. Installationbash
 git clone <repository-url>
@@ -168,10 +169,11 @@ streamlit run Phase4_Dashboard.py
 Open your browser and navigate to:
 http://localhost:8502/
 
-  Support
+  ***Support***
+  
 For questions or issues regarding this project, please open an issue in the GitHub repository.
 
-These Are Photos From Dashboard:
+***These Are Photos From Dashboard:***
 
 <img width="2553" height="1359" alt="image" src="https://github.com/user-attachments/assets/7cfe28c1-0fbd-45e4-8677-8aaa7914ba51" />
 <img width="2109" height="559" alt="image" src="https://github.com/user-attachments/assets/50fa12da-0bd5-45cc-bf15-af2d130ce372" />
