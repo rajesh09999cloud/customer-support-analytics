@@ -168,3 +168,5 @@ http://localhost:8502/
 
   Support
 For questions or issues regarding this project, please open an issue in the GitHub repository.
+
+<img width="2553" height="1359" alt="image" src="https://github.com/user-attachments/assets/7cfe28c1-0fbd-45e4-8677-8aaa7914ba51" />
