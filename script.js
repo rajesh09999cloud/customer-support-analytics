@@ -1,296 +1,671 @@
-// Sample Data
-const sampleData = {
-    tickets: [],
-    categories: ['Billing', 'Technical', 'Account', 'General'],
-    priorities: ['Low', 'Medium', 'High', 'Urgent'],
-    statuses: ['Open', 'Closed', 'Pending']
-};
+:root {
+    --primary: #4361ee;
+    --secondary: #3f37c9;
+    --accent: #4cc9f0;
+    --success: #4ade80;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --dark: #1e293b;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --sidebar-width: 280px;
+    --header-height: 70px;
+}
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    initializeData();
-    setupEventListeners();
-    initializeCharts();
-});
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-// Generate sample data
-function initializeData() {
-    const ticketTemplates = {
-        'Billing': [
-            "I was charged twice for my subscription",
-            "Can you explain the charges on my bill?",
-            "I need a refund for last month's service",
-            "Why was my payment declined?",
-            "Incorrect billing amount on invoice"
-        ],
-        'Technical': [
-            "The app is crashing when I try to login",
-            "I cannot access my dashboard",
-            "Feature is not working properly",
-            "Getting error code when uploading files",
-            "Slow performance issues"
-        ],
-        'Account': [
-            "I forgot my password and cannot reset it",
-            "How do I update my email address?",
-            "My account was hacked please help",
-            "I want to delete my account",
-            "Cannot access my account"
-        ],
-        'General': [
-            "How do I contact customer service?",
-            "What are your business hours?",
-            "I have a general question about services",
-            "Can you send me more information about pricing?",
-            "Feedback about your service"
-        ]
-    };
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--dark);
+}
 
-    // Generate sample tickets
-    for (let i = 1; i <= 100; i++) {
-        const category = sampleData.categories[Math.floor(Math.random() * sampleData.categories.length)];
-        const templates = ticketTemplates[category];
-        const ticketText = templates[Math.floor(Math.random() * templates.length)];
-        
-        sampleData.tickets.push({
-            id: i,
-            text: ticketText,
-            category: category,
-            priority: sampleData.priorities[Math.floor(Math.random() * sampleData.priorities.length)],
-            status: sampleData.statuses[Math.floor(Math.random() * sampleData.statuses.length)],
-            resolutionTime: Math.random() * 48 + 2 // 2-50 hours
-        });
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding: 0 25px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 30px;
+}
+
+.logo i {
+    font-size: 28px;
+    margin-right: 12px;
+    color: var(--accent);
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.nav-links li {
+    margin-bottom: 8px;
+}
+
+.nav-links a {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-left-color: var(--accent);
+}
+
+.nav-links i {
+    font-size: 20px;
+    margin-right: 15px;
+    width: 24px;
+    text-align: center;
+}
+
+.nav-links span {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.header {
+    height: var(--header-height);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+}
+
+.header h2 {
+    font-weight: 600;
+    color: var(--dark);
+    margin: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid var(--accent);
+}
+
+.content-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: var(--light);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard Overview Styles */
+.welcome-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+}
+
+.welcome-banner h3 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.metrics-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.metric-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid var(--primary);
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card.urgent {
+    border-left-color: var(--danger);
+}
+
+.metric-card.resolved {
+    border-left-color: var(--success);
+}
+
+.metric-card.pending {
+    border-left-color: var(--warning);
+}
+
+.metric-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: white;
+}
+
+.metric-card .metric-icon {
+    background: var(--primary);
+}
+
+.metric-card.urgent .metric-icon {
+    background: var(--danger);
+}
+
+.metric-card.resolved .metric-icon {
+    background: var(--success);
+}
+
+.metric-card.pending .metric-icon {
+    background: var(--warning);
+}
+
+.metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.metric-label {
+    color: var(--gray);
+    font-weight: 500;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.chart-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.recent-tickets {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.recent-tickets h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.ticket-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.3s ease;
+}
+
+.ticket-item:hover {
+    background: #f8fafc;
+}
+
+.ticket-item:last-child {
+    border-bottom: none;
+}
+
+.ticket-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 18px;
+}
+
+.ticket-info {
+    flex: 1;
+}
+
+.ticket-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.ticket-meta {
+    display: flex;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.ticket-meta span {
+    margin-right: 15px;
+}
+
+.ticket-priority {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.priority-high {
+    background: #fee2e2;
+    color: var(--danger);
+}
+
+.priority-medium {
+    background: #fef3c7;
+    color: var(--warning);
+}
+
+.priority-low {
+    background: #d1fae5;
+    color: var(--success);
+}
+
+/* Ticket Classifier Styles */
+.classifier-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.input-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.input-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.ticket-input {
+    width: 100%;
+    min-height: 200px;
+    padding: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: border 0.3s ease;
+}
+
+.ticket-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.analyze-btn {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.analyze-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+}
+
+.analyze-btn i {
+    margin-right: 8px;
+}
+
+.examples-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.examples-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.example-item {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.example-item:hover {
+    background: #f8fafc;
+    border-left-color: var(--primary);
+}
+
+.example-item:last-child {
+    margin-bottom: 0;
+}
+
+.example-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.example-text {
+    font-size: 14px;
+    color: var(--gray);
+}
+
+.results-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    display: none;
+}
+
+.results-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.result-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.result-label {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 10px;
+}
+
+.result-value {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.result-confidence {
+    font-size: 14px;
+    color: var(--success);
+    font-weight: 500;
+}
+
+.recommendation {
+    margin-top: 20px;
+    padding: 15px;
+    background: #ecfdf5;
+    border-radius: 10px;
+    border-left: 4px solid var(--success);
+}
+
+/* Data Analytics Styles */
+.filters-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.filters-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.data-table-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.data-table-card h4 {
+    margin-bottom: 20px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #f8fafc;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--dark);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 15px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table tr:hover {
+    background: #f8fafc;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-open {
+    background: #dbeafe;
+    color: var(--primary);
+}
+
+.status-closed {
+    background: #d1fae5;
+    color: var(--success);
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: var(--warning);
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .dashboard-container {
+        flex-direction: column;
+        margin: 10px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .nav-links {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    
+    .nav-links li {
+        margin-bottom: 0;
+        margin-right: 10px;
+    }
+    
+    .nav-links a {
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--accent);
+    }
+    
+    .charts-container, .classifier-container {
+        grid-template-columns: 1fr;
     }
 }
 
-// Setup event listeners
-function setupEventListeners() {
-    // Navigation
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Remove active class from all links
-            document.querySelectorAll('.nav-links a').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Add active class to clicked link
-            this.classList.add('active');
-            
-            // Hide all tab content
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab content
-            const tabId = this.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
-            
-            // Update header title
-            document.getElementById('currentTab').textContent = 
-                this.querySelector('span').textContent + (tabId === 'dashboard' ? ' Overview' : '');
-            
-            // Initialize charts if on dashboard
-            if (tabId === 'dashboard') {
-                initializeCharts();
-            }
-        });
-    });
-
-    // Example ticket click
-    document.querySelectorAll('.example-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const text = this.querySelector('.example-text').textContent;
-            document.querySelector('.ticket-input').value = text;
-        });
-    });
-
-    // Analyze button
-    document.querySelector('.analyze-btn').addEventListener('click', analyzeTicket);
-
-    // Filter changes
-    document.querySelectorAll('.filter-select').forEach(select => {
-        select.addEventListener('change', updateFilters);
-    });
-}
-
-// Initialize Charts
-function initializeCharts() {
-    // Destroy existing charts if they exist
-    if (window.categoryChart) {
-        window.categoryChart.destroy();
+@media (max-width: 576px) {
+    .metrics-container {
+        grid-template-columns: 1fr;
     }
-    if (window.priorityChart) {
-        window.priorityChart.destroy();
+    
+    .results-grid {
+        grid-template-columns: 1fr;
     }
-
-    // Category Chart
-    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-    window.categoryChart = new Chart(categoryCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Billing', 'Technical', 'Account', 'General'],
-            datasets: [{
-                data: [35, 28, 22, 15],
-                backgroundColor: [
-                    '#e74c3c', '#3498db', '#2ecc71', '#f39c12'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-
-    // Priority Chart
-    const priorityCtx = document.getElementById('priorityChart').getContext('2d');
-    window.priorityChart = new Chart(priorityCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Low', 'Medium', 'High', 'Urgent'],
-            datasets: [{
-                label: 'Tickets',
-                data: [45, 62, 28, 12],
-                backgroundColor: [
-                    '#10b981', '#f59e0b', '#ef4444', '#7c3aed'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 10
-                    }
-                }
-            }
-        }
-    });
-}
-
-// Ticket Classification
-function analyzeTicket() {
-    const ticketText = document.querySelector('.ticket-input').value.trim();
     
-    if (!ticketText) {
-        alert('Please enter a ticket description to analyze.');
-        return;
+    .header {
+        padding: 0 15px;
     }
-
-    // Simulate ML model prediction
-    const ticketLower = ticketText.toLowerCase();
-    let category, categoryConfidence, priority, priorityConfidence;
-
-    // Category prediction
-    if (ticketLower.includes('charge') || ticketLower.includes('bill') || ticketLower.includes('payment') || ticketLower.includes('refund') || ticketLower.includes('price')) {
-        category = 'Billing';
-        categoryConfidence = '92%';
-    } else if (ticketLower.includes('crash') || ticketLower.includes('error') || ticketLower.includes('bug') || ticketLower.includes('not working') || ticketLower.includes('technical')) {
-        category = 'Technical';
-        categoryConfidence = '88%';
-    } else if (ticketLower.includes('password') || ticketLower.includes('account') || ticketLower.includes('login') || ticketLower.includes('access')) {
-        category = 'Account';
-        categoryConfidence = '85%';
-    } else {
-        category = 'General';
-        categoryConfidence = '78%';
+    
+    .content-area {
+        padding: 15px;
     }
-
-    // Priority prediction
-    if (ticketLower.includes('urgent') || ticketLower.includes('emergency') || ticketLower.includes('immediately') || ticketLower.includes('asap')) {
-        priority = 'Urgent';
-        priorityConfidence = '95%';
-    } else if (ticketLower.includes('not working') || ticketLower.includes('broken') || ticketLower.includes('issue') || ticketLower.includes('problem')) {
-        priority = 'High';
-        priorityConfidence = '82%';
-    } else {
-        priority = 'Medium';
-        priorityConfidence = '75%';
-    }
-
-    // Display results
-    const resultsCard = document.querySelector('.results-card');
-    resultsCard.style.display = 'block';
-    
-    // Update result values
-    document.querySelector('.result-value:nth-child(2)').textContent = category;
-    document.querySelector('.result-confidence:nth-child(3)').textContent = categoryConfidence + ' Confidence';
-    
-    document.querySelectorAll('.result-value')[1].textContent = priority;
-    document.querySelectorAll('.result-confidence')[1].textContent = priorityConfidence + ' Confidence';
-    
-    document.querySelector('.recommendation strong').innerHTML = 
-        `Recommended Action: Route to ${category} team with ${priority} priority`;
-
-    // Add animation
-    resultsCard.style.opacity = '0';
-    resultsCard.style.transform = 'translateY(10px)';
-    
-    setTimeout(() => {
-        resultsCard.style.transition = 'all 0.5s ease';
-        resultsCard.style.opacity = '1';
-        resultsCard.style.transform = 'translateY(0)';
-    }, 100);
 }
-
-// Update filters
-function updateFilters() {
-    // In a real application, this would filter the data and update the table
-    console.log('Filters updated');
-    
-    // Show loading state
-    const tableCard = document.querySelector('.data-table-card');
-    const originalContent = tableCard.innerHTML;
-    
-    tableCard.innerHTML = `
-        <div style="text-align: center; padding: 40px;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-3">Applying filters...</p>
-        </div>
-    `;
-    
-    // Simulate API call delay
-    setTimeout(() => {
-        tableCard.innerHTML = originalContent;
-        
-        // Reattach event listeners if needed
-        document.querySelectorAll('.filter-select').forEach(select => {
-            select.addEventListener('change', updateFilters);
-        });
-    }, 1000);
-}
-
-// Update metrics with real-time data
-function updateMetrics() {
-    // Calculate metrics from sample data
-    const totalTickets = sampleData.tickets.length;
-    const resolvedTickets = sampleData.tickets.filter(ticket => ticket.status === 'Closed').length;
-    const pendingTickets = sampleData.tickets.filter(ticket => ticket.status === 'Pending').length;
-    const urgentTickets = sampleData.tickets.filter(ticket => ticket.priority === 'Urgent').length;
-    
-    // Update metric cards
-    document.querySelector('.metric-card:nth-child(1) .metric-value').textContent = totalTickets.toLocaleString();
-    document.querySelector('.metric-card.resolved .metric-value').textContent = resolvedTickets.toLocaleString();
-    document.querySelector('.metric-card.pending .metric-value').textContent = pendingTickets.toLocaleString();
-    document.querySelector('.metric-card.urgent .metric-value').textContent = urgentTickets.toLocaleString();
-}
-
-// Initialize metrics on load
-updateMetrics();
