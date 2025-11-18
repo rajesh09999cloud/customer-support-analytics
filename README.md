@@ -8,7 +8,7 @@ This project implements a full-stack web application that uses machine learning 
 
 ## Live Demo
 
-[View Live Dashboard] https://2mgqbqj9-5500.inc1.devtunnels.ms/
+[View Live Dashboard]: (https://customer-support-analytics.vercel.app/)
 
 ## Features
 
@@ -96,4 +96,6 @@ The system follows a modular architecture with separate components for:
 - Python 3.8 or higher
 - pip package manager
 - Modern web browser
+
+
 
