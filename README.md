@@ -1,4 +1,4 @@
-# Customer Support Analytics Dashboard
+# Customer Support Analytics 
 
 A comprehensive machine learning-powered dashboard for analyzing and classifying customer support tickets with automated categorization and priority prediction.
 
@@ -99,4 +99,5 @@ The system follows a modular architecture with separate components for:
 
 upport-analytics-dashboard.git
 cd support-analytics-dashboard
+
 
