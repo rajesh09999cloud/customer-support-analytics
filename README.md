@@ -7,7 +7,8 @@ A comprehensive machine learning-powered dashboard for analyzing and classifying
 This project implements a full-stack web application that uses machine learning algorithms to automatically classify customer support tickets into relevant categories and predict their priority levels. The system helps support teams streamline ticket routing, reduce response times, and improve overall customer service efficiency.
 
 ## Live Demo
-[View Live Dashboard]: https://customer-support-analytics.vercel.app/
+
+[View Live Dashboard] https://customer-support-analytics.vercel.app/
 
 ## Features
 
@@ -96,6 +97,5 @@ The system follows a modular architecture with separate components for:
 - pip package manager
 - Modern web browser
 
-
-
-
+upport-analytics-dashboard.git
+cd support-analytics-dashboard
