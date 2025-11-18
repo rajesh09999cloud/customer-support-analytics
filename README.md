@@ -8,7 +8,7 @@ This project implements a full-stack web application that uses machine learning 
 
 ## Live Demo
 
-[View Live Dashboard] https://customer-support-analytics.vercel.app/
+[View Live Dashboard] https://rajesh09999cloud.github.io/customer-support-analytics/
 
 ## Features
 
@@ -99,3 +99,4 @@ The system follows a modular architecture with separate components for:
 
 upport-analytics-dashboard.git
 cd support-analytics-dashboard
+
